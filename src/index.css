@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
 @theme {
-  --color-sanpatricio-primary: #064e3b;
-  --color-sanpatricio-secondary: #facc15;
-  --color-sanpatricio-light: #d1fae5;
+  --color-sanpatricio-primary: #0ea5e9;
+  --color-sanpatricio-secondary: #171717;
+  --color-sanpatricio-light: #e0f2fe;
 }
 
 body {
