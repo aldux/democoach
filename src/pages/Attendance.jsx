@@ -14,7 +14,34 @@ export default function Attendance() {
   const loadPlayers = async () => {
     setIsLoading(true);
     const data = await getPlayers();
-    setPlayers(data);
+    
+    // Recuperar el estado guardado localmente si es del mismo día
+    const todayStr = new Date().toDateString();
+    const savedStateStr = localStorage.getItem('rugby_daily_attendance');
+    let mergedPlayers = data;
+    
+    if (savedStateStr) {
+      try {
+        const savedState = JSON.parse(savedStateStr);
+        if (savedState.date === todayStr) {
+          // Fusionar el estado de los checks guardados con la lista de jugadores que vino de la nube
+          mergedPlayers = data.map(cloudPlayer => {
+            const localPlayer = savedState.players.find(p => p.id === cloudPlayer.id);
+            if (localPlayer) {
+              return { ...cloudPlayer, training: localPlayer.training, match: localPlayer.match, absent: localPlayer.absent };
+            }
+            return cloudPlayer;
+          });
+        } else {
+          // Si es otro día, limpiar la caché local
+          localStorage.removeItem('rugby_daily_attendance');
+        }
+      } catch (e) {
+        localStorage.removeItem('rugby_daily_attendance');
+      }
+    }
+    
+    setPlayers(mergedPlayers);
     setIsLoading(false);
   };
 
@@ -26,7 +53,8 @@ export default function Attendance() {
       id: Date.now(),
       name: newPlayerName.trim(),
       training: false,
-      match: false
+      match: false,
+      absent: false
     };
     
     const updated = [...players, newPlayer];
@@ -41,24 +69,36 @@ export default function Attendance() {
     await savePlayersList(updated);
   };
 
+  // Función auxiliar para actualizar el localStorage cada vez que hay un cambio
+  const updateLocalState = (updatedPlayers) => {
+    setPlayers(updatedPlayers);
+    localStorage.setItem('rugby_daily_attendance', JSON.stringify({
+      date: new Date().toDateString(),
+      players: updatedPlayers
+    }));
+  };
+
   const toggleTraining = (id) => {
-    setPlayers(prev => prev.map(p => 
-      p.id === id ? { ...p, training: !p.training } : p
+    updateLocalState(players.map(p => 
+      p.id === id ? { ...p, training: !p.training, absent: false } : p
     ));
   };
 
   const toggleMatch = (id) => {
-    setPlayers(prev => prev.map(p => 
-      p.id === id ? { ...p, match: !p.match } : p
+    updateLocalState(players.map(p => 
+      p.id === id ? { ...p, match: !p.match, absent: false } : p
+    ));
+  };
+
+  const toggleAbsent = (id) => {
+    updateLocalState(players.map(p => 
+      p.id === id ? { ...p, training: false, match: false, absent: true } : p
     ));
   };
 
   const handleSave = async () => {
     await saveAttendance(players);
-    // Guardar el listado blanqueado para el futuro
-    await savePlayersList(players.map(p => ({ ...p, training: false, match: false })));
-    alert('¡Planilla guardada con éxito! La lista base se limpió para la próxima vez.');
-    loadPlayers(); // Recargar limpios
+    alert('¡Planilla guardada con éxito en Google Sheets!');
   };
 
   const totalTraining = players.filter(p => p.training).length;
