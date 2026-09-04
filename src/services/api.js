@@ -2,7 +2,7 @@
 // CONEXIÓN A GOOGLE SHEETS / APPS SCRIPT BACKEND
 // ============================================================================
 
-export const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx2y516LdLvqiy_we3sU5vE5SihJY9aZDhkRsB3GtFMSkOGKwswqgHOICGthuN-fE0/exec';
+export const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxkmrkCtIzd9BviEvMWjpSggnJUb5foTpNljHYEymyR7yEUhNZPeXBzpew60a5e2xI/exec';
 
 // --- DATOS POR DEFECTO BASE ---
 const exercisesMock = [
