@@ -177,31 +177,33 @@ export default function TacticalBoard() {
       </div>
 
       {/* Bottom Toolbar for Saving/Loading */}
-      <div className="bg-white p-3 shadow-md flex gap-2 overflow-x-auto pb-4">
-        <div className="flex gap-2 items-center flex-shrink-0">
+      <div className="bg-white p-3 shadow-md flex flex-col gap-3 pb-4">
+        <div className="flex gap-2 items-center w-full">
           <input 
             type="text" 
             placeholder="Nombre de jugada..."
-            className="border rounded px-2 py-1 text-sm outline-none focus:border-sanpatricio-primary"
+            className="border rounded px-3 py-2 text-sm outline-none focus:border-sanpatricio-primary flex-1 bg-gray-50"
             value={playName}
             onChange={(e) => setPlayName(e.target.value)}
           />
-          <button onClick={handleSave} className="bg-sanpatricio-primary text-white p-1.5 rounded-lg">
-            <Save size={20} />
+          <button onClick={handleSave} className="bg-sanpatricio-primary text-white p-2 rounded-lg font-bold flex items-center gap-1 shadow-sm">
+            <Save size={18} /> Guardar
           </button>
         </div>
         
-        <div className="h-8 w-px bg-gray-300 mx-2"></div>
+        <div className="w-full h-px bg-gray-200 my-1"></div>
         
-        {Object.keys(plays).map(name => (
-          <button 
-            key={name}
-            onClick={() => handleLoad(name)}
-            className="flex items-center gap-1 bg-sanpatricio-light text-sanpatricio-primary px-3 py-1 rounded-lg text-sm whitespace-nowrap font-medium"
-          >
-            <Download size={16} /> {name}
-          </button>
-        ))}
+        <div className="flex flex-wrap gap-2">
+          {Object.keys(plays).map(name => (
+            <button 
+              key={name}
+              onClick={() => handleLoad(name)}
+              className="flex items-center gap-1.5 bg-sanpatricio-light text-sanpatricio-primary border border-sanpatricio-primary/20 px-3 py-1.5 rounded-lg text-sm font-semibold shadow-sm active:scale-95 transition-transform"
+            >
+              <Download size={16} /> {name}
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );
