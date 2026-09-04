@@ -10,7 +10,11 @@ export default function TacticalBoard() {
   const boardRef = useRef(null);
 
   useEffect(() => {
-    setPlays(getPlays());
+    const loadPlays = async () => {
+      const data = await getPlays();
+      setPlays(data);
+    };
+    loadPlays();
   }, []);
 
   const addToken = (type) => {
@@ -43,13 +47,14 @@ export default function TacticalBoard() {
     setTokens(tokens.map(t => t.id === id ? { ...t, x: relativeX, y: relativeY } : t));
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!playName) {
       alert('Ingresa un nombre para la jugada');
       return;
     }
-    savePlay(playName, tokens);
-    setPlays(getPlays());
+    await savePlay(playName, tokens);
+    const data = await getPlays();
+    setPlays(data);
     setPlayName('');
     alert('Jugada guardada');
   };
