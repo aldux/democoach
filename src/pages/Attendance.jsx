@@ -130,29 +130,48 @@ export default function Attendance() {
                   {player.name}
                 </span>
                 
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2">
                   {/* Botón de Entrenamiento */}
                   <button 
                     onClick={() => toggleTraining(player.id)}
-                    className={`flex items-center justify-center p-3 rounded-xl transition-all w-14 h-12 ${
+                    className={`flex items-center justify-center p-2 rounded-xl transition-all w-12 h-10 ${
                       player.training 
                         ? 'bg-sanpatricio-primary text-white shadow-md' 
                         : 'bg-gray-100 text-gray-400 border border-gray-200'
                     }`}
+                    title="Presente en Entrenamiento"
                   >
-                    <Dumbbell size={22} />
+                    <Dumbbell size={20} />
                   </button>
 
                   {/* Botón de Partido */}
                   <button 
                     onClick={() => toggleMatch(player.id)}
-                    className={`flex items-center justify-center p-3 rounded-xl transition-all w-14 h-12 ${
+                    className={`flex items-center justify-center p-2 rounded-xl transition-all w-12 h-10 ${
                       player.match 
                         ? 'bg-blue-600 text-white shadow-md' 
                         : 'bg-gray-100 text-gray-400 border border-gray-200'
                     }`}
+                    title="Presente en Partido"
                   >
-                    <Trophy size={22} />
+                    <Trophy size={20} />
+                  </button>
+                  
+                  {/* Botón de Ausente */}
+                  <button 
+                    onClick={() => {
+                      setPlayers(prev => prev.map(p => 
+                        p.id === player.id ? { ...p, training: false, match: false, absent: true } : p
+                      ));
+                    }}
+                    className={`flex items-center justify-center p-2 rounded-xl transition-all w-12 h-10 ${
+                      (!player.training && !player.match) 
+                        ? 'bg-red-500 text-white shadow-md' 
+                        : 'bg-gray-100 text-gray-400 border border-gray-200'
+                    }`}
+                    title="Ausente"
+                  >
+                    <span className="font-bold text-sm">X</span>
                   </button>
                 </div>
               </div>
