@@ -8,9 +8,9 @@ export default {
     extend: {
       colors: {
         sanpatricio: {
-          primary: '#064e3b', // emerald-900
-          secondary: '#facc15', // yellow-400 (Assuming gold/yellow for contrast/details)
-          light: '#d1fae5', // emerald-100
+          primary: '#0ea5e9', // celeste (sky-500)
+          secondary: '#facc15', // amarillo (yellow-400)
+          light: '#e0f2fe', // celeste claro (sky-100)
         }
       }
     },
