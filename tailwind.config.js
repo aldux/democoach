@@ -9,7 +9,7 @@ export default {
       colors: {
         sanpatricio: {
           primary: '#0ea5e9', // celeste (sky-500)
-          secondary: '#facc15', // amarillo (yellow-400)
+          secondary: '#171717', // negro (neutral-900)
           light: '#e0f2fe', // celeste claro (sky-100)
         }
       }
