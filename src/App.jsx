@@ -10,7 +10,7 @@ function App() {
     <Router>
       <div className="flex flex-col h-screen overflow-hidden bg-gray-50">
         <header className="bg-sanpatricio-primary text-white p-4 shadow-md flex items-center justify-center">
-          <h1 className="text-xl font-bold tracking-wider">San Patricio Coach</h1>
+          <h1 className="text-xl font-bold tracking-wider">Junior Rugby Coach</h1>
         </header>
         
         <main className="flex-1 overflow-y-auto pb-20 relative">

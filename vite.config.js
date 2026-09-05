@@ -10,8 +10,8 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
       manifest: {
-        name: 'San Patricio Coach App',
-        short_name: 'CoachApp',
+        name: 'Junior Rugby Coach App',
+        short_name: 'JuniorCoach',
         description: 'PWA for Rugby Coaches',
         theme_color: '#064e3b', // Emerald 900 / Dark green
         background_color: '#ffffff',
